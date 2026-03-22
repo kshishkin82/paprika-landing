@@ -1,69 +1,85 @@
 # Paprika Landing - Working Notes
 
-## Project state
-- Stack: static HTML + CSS + tiny JS (`script.js` only for mobile menu toggle, currently header removed so JS mostly unused).
-- Tailwind removed. Styles split by domain:
-  - `base.css`
-  - `menu.css`
-  - `hero.css`
-  - `mcblock.css`
-  - `events.css`
-  - `reviews.css`
-  - `gallery.css`
-  - `cert.css`
-  - `contacts.css`
-- Main page: `index.html`.
+## Current state
+- Stack: static `index.html` + modular CSS + minimal JS.
+- Tailwind is fully removed.
+- CSS moved to `assets/css/`.
+- Images moved to `assets/img/`.
 
-## Current section order
+## File structure
+- HTML:
+  - `index.html`
+- CSS:
+  - `assets/css/base.css`
+  - `assets/css/menu.css`
+  - `assets/css/hero.css`
+  - `assets/css/mcblock.css`
+  - `assets/css/events.css`
+  - `assets/css/reviews.css`
+  - `assets/css/gallery.css`
+  - `assets/css/cert.css`
+  - `assets/css/contacts.css`
+- Images:
+  - `assets/img/logo.webp`
+  - `assets/img/rabbit.png`
+  - `assets/img/cert.png`
+  - `assets/img/cert.webp`
+  - `assets/img/events-bg.jpg`
+- Notes:
+  - `.ai/PROJECT_NOTES.md`
+
+## Section order on page
 1. `hero`
-2. `hero-menu` (menu under hero)
-3. `mc-section` (4 cards: 3 nearest workshops + "Смотреть все мастер классы")
+2. `hero-menu`
+3. `mc-section`
 4. `events-section`
 5. `reviews-section`
 6. `gallery-section`
 7. `cert-section`
-8. `site-footer` (contacts + map iframe)
+8. `site-footer` (contacts + map)
 
-## Assets in `design/`
-- `logo.webp`
-- `rabbit.png`
-- `cert.png`
-- `cert.webp`
-- `events-bg.jpg` (used as blurred/dimmed background for events section)
+## Implemented content blocks
+- `mc-section`: 3 nearest classes + card "Смотреть все мастер классы".
+- `events-section`: formats + "Как проходит мероприятие" + pricing cards.
+- `reviews-section`: 3 cards + static left/right arrows + Yandex/2GIS rating badges with stars and Yandex award icon.
+- `gallery-section`: intro text + grid from Marrakesh album.
+- `cert-section`: gift certificate text + CTA, image as background.
+- `contacts`: full-width white block, left text + right Yandex map iframe.
 
-## Important styling decisions implemented
-- Dark theme for most sections with custom CSS variables in `:root`.
-- Hero rabbit is a background image (not `<img>`), positioned and tuned via `hero.css`.
-- Workshop cards:
-  - fixed 4-column grid
-  - hover zoom applies to background layer only (`::before`), not card size.
+## Responsive rules requested by user (T = phone, P = tablet)
+- Hero:
+  - On P/T rabbit is above text (`background-position: center top` with top padding).
+  - P/T hero padding: `15px 0 0`.
+- Menu:
+  - On T menu is large and line-by-line (column layout).
+- Master classes:
+  - P: 2 per row.
+  - T: 1 per row.
 - Reviews:
-  - white background section
-  - static decorative left/right arrow buttons
-  - right-aligned rating badges (Yandex + 2GIS), star ratings, Yandex "Хорошее место 2026" icon.
-- Gallery:
-  - text intro above grid
-  - hover zoom only inside clipped card.
-- Certificate block:
-  - background image from `design/cert.png`
-  - black/dark background and min-height configured.
+  - T: 1 card per row.
+- Certificate:
+  - P: `background-size: 50%`.
+  - T: `background-size: 84%`.
 - Contacts:
-  - full-width white card
-  - 2-column layout with map iframe on right.
+  - P text size: `15px`.
+  - T text size: `19px`.
 
-## Content/data sources used
-- Workshops and dates were taken from:
-  - `http://5.188.31.156/raspisanie/`
-- Gallery images were taken from:
-  - `http://5.188.31.156/fotogalereya/marrakesh-2/`
+## Design notes currently active
+- Global non-heading font-size rule:
+  - `clamp(15px, 17px, 20px)` in `base.css` (with `!important`).
+- All `h2` globally styled similar to contacts style (underline + weight + clamp size).
+- Footer has fixed height `1000px` (explicit request).
 
-## Known caveats
-- `script.js` still toggles `.menu.is-open`; currently no header menu button in DOM after header removal.
-- Some media-query values were heavily customized during iteration; re-check mobile layout before release.
-- Footer has forced `height: 1000px` by explicit user request.
+## Data sources used
+- Schedule cards: `http://5.188.31.156/raspisanie/`
+- Gallery photos: `http://5.188.31.156/fotogalereya/marrakesh-2/`
 
-## Quick resume checklist for next session
-1. Open `index.html` and verify final visual hierarchy after latest tweaks.
-2. Check `events-title` visibility over blurred background (`events-head-wrap` with z-index).
-3. Validate responsive behavior for `events`, `reviews-meta` badges, `contacts-layout`.
-4. If needed, remove/adjust obsolete JS in `script.js`.
+## Caveats to remember
+- `script.js` toggles `.menu.is-open`, but currently there is no header menu button in DOM.
+- Because of global font-size override + many iterative tweaks, mobile typography may need another pass.
+- `events.css` still contains some legacy selectors (`.event-dot`) no longer used in HTML.
+
+## Resume checklist
+1. Validate T/P breakpoints visually in browser (hero, menu, mc, reviews, cert, contacts).
+2. Re-check global `h2` + global text clamp impact on all sections.
+3. If header is not coming back, simplify or remove `script.js`.
