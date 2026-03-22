@@ -1,0 +1,76 @@
+:root {
+  --bg: #0b0b0b;
+  --ink: #f7f2eb;
+  --muted: #cbbfb4;
+  --hot-rgb: 215, 52, 44;
+  --hot: rgb(var(--hot-rgb));
+  --sun: #101010;
+  --mint: #101010;
+  --card: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --chalk: rgba(255, 255, 255, 0.75);
+  --teal: #39b3b1;
+  --radius: 20px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+}
+
+.container {
+  width: min(1120px, 92vw);
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Merriweather", serif;
+}
+
+h2 {
+  font-family: "Merriweather", serif;
+  font-weight: 300;
+  font-size: clamp(30px, 8vw, 30px);
+}
+
+a {
+  color: inherit;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-hot {
+  background: linear-gradient(135deg, rgba(var(--hot-rgb), 1), rgba(var(--hot-rgb), 0.85));
+  border-color: rgba(var(--hot-rgb), 1);
+  color: #fff;
+}

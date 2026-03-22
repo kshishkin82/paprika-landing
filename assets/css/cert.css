@@ -1,0 +1,51 @@
+.cert-section {
+  min-height: 500px;
+  padding: 92px 0 112px;
+  background: #161414;
+  background-image: url("../img/cert.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+.cert-inner {
+  min-height: 360px;
+  display: flex;
+  align-items: flex-start;
+  padding: 26px 0;
+}
+
+.cert-copy h2 {
+  font-size: clamp(29px, 2.4vw, 72px);
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.cert-copy p {
+  margin: 14px 0 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--chalk);
+  max-width: 56ch;
+}
+
+.cert-copy .btn {
+  margin-top: 18px;
+}
+
+@media (max-width: 1024px) {
+  .cert-section {
+    background-size: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cert-inner {
+    min-height: auto;
+    padding-bottom: 200px;
+  }
+
+  .cert-section {
+    background-size: 84%;
+    background-position: right bottom;
+  }
+}

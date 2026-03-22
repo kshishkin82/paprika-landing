@@ -1,0 +1,102 @@
+.hero {
+  overflow: hidden;
+  border-bottom: 1px solid var(--card-border);
+  background:
+    radial-gradient(1200px 480px at 16% 0%, rgba(var(--hot-rgb), 0.18), rgba(0, 0, 0, 0) 60%),
+    radial-gradient(900px 520px at 92% 10%, rgba(57, 179, 177, 0.18), rgba(0, 0, 0, 0) 55%),
+    var(--bg);
+  padding: 100px 0 0;
+}
+
+.hero-inner {
+  min-height: 500px;
+  background-image: url("../img/rabbit.png");
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: auto 500px;
+}
+
+.hero-text {
+  max-width: 60%;
+  margin-left: 500px;
+  padding-bottom: 24px;
+}
+
+.hero-text h1 {
+  font-size: clamp(31px, 3.9vw, 57px);
+  line-height: 1.02;
+  font-weight: 400;
+  margin: 0 0 16px 0;
+}
+
+.hero-text h2 {
+  color: white;
+
+}
+
+.hero-text p {
+  margin: 0 0 16px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.hero-text .btn {
+  margin-top: 18px;
+}
+
+@media (max-width: 1200px) {
+  .hero-text {
+    margin-left: 500px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero {
+    padding: 15px 0 0;
+  }
+
+  .hero-inner {
+    background-position: center top;
+    background-size: auto 280px;
+    min-height: auto;
+    padding-top: 300px;
+  }
+
+  .hero-text {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .hero-text h1 {
+    font-size: 60px;
+  }
+
+  .hero-text p {
+    font-size: 20px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 15px 0 0;
+  }
+
+  .hero-inner {
+    background-position: center top;
+    background-size: auto 220px;
+    min-height: auto;
+    padding-top: 236px;
+    padding-bottom: 24px;
+  }
+
+  .hero-text h1 {
+    font-size: 49px;
+  }
+
+  .hero-text p {
+    font-size: 18px;
+  }
+
+}

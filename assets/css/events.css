@@ -1,0 +1,152 @@
+.events-section {
+  position: relative;
+  overflow: hidden;
+  padding: 86px 0 96px;
+  background: #181212;
+}
+
+.events-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
+    url("../img/events-bg.jpg") center / cover no-repeat;
+  filter: blur(5px);
+  transform: scale(1.04);
+  z-index: 0;
+}
+
+.events-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.events-head-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.events-title {
+  font-size: clamp(30px, 2.6vw, 58px);
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 26px;
+}
+
+.events-lead {
+  margin: 12px 0 0;
+  color: var(--chalk);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 50ch;
+}
+
+.events-types {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.event-type {
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*gap: 10px;*/
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.event-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--hot);
+  box-shadow: 0 0 0 6px rgba(var(--hot-rgb), 0.18);
+}
+
+.event-type h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--ink);
+}
+
+.event-type p {
+  margin: 8px 0 0;
+  color: var(--chalk);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.events-right {
+  border-radius: 18px;
+  padding: 18px;
+  position: relative;
+}
+
+.events-subtitle {
+  margin: 0;
+  padding-left: 12px;
+  font-family: "Manrope", sans-serif;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.events-list {
+  margin: 14px 0 0;
+  padding: 0 0 0 28px;
+  color: var(--chalk);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.events-list li + li {
+  margin-top: 8px;
+}
+
+.events-pricing {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.events-price-card {
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.events-price-card span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.events-price-card strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+@media (max-width: 960px) {
+  .events-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .events-pricing {
+    grid-template-columns: 1fr;
+  }
+}
