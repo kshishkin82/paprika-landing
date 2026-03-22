@@ -4,6 +4,9 @@
 }
 
 .reviews-title {
+  display: inline-block;
+  width: fit-content;
+  align-self: flex-start;
   font-size: clamp(29px, 2.4vw, 72px);
   font-weight: 400;
   color: #111;
@@ -65,7 +68,7 @@
 }
 
 .reviews-stars {
-  color: #ffcc00;
+  color: #ffcc00 !important;
   letter-spacing: 0.04em;
   font-size: 13px;
   line-height: 1;

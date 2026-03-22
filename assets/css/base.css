@@ -44,6 +44,15 @@ h3 {
 }
 
 h2 {
+  display: inline-block;
+  font-size: clamp(29px, 2.4vw, 72px);
+  font-weight: 700;
+  color: var(--ink);
+  border-bottom: 2px solid rgba(var(--hot-rgb), 1);
+  margin-bottom: 22px;
+}
+
+h2 {
   font-family: "Merriweather", serif;
   font-weight: 300;
   font-size: clamp(30px, 8vw, 30px);
@@ -51,6 +60,10 @@ h2 {
 
 a {
   color: inherit;
+}
+
+:where(body, p, a, li, span, button, input, textarea, label, small, strong, em, cite, blockquote) {
+  font-size: clamp(15px, 17px, 20px) !important;
 }
 
 .btn {
