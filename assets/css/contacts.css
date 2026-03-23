@@ -81,9 +81,6 @@
   border-radius: 12px;
 }
 
-@media (max-width: 1200px) {
-}
-
 @media (max-width: 1024px) {
   .contacts-text {
     font-size: 15px;

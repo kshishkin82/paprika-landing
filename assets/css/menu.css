@@ -21,9 +21,13 @@
 }
 
 .hero-menu {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   border-top: 1px solid var(--card-border);
   border-bottom: 1px solid var(--card-border);
   background: rgba(11, 11, 11, 0.92);
+  backdrop-filter: blur(8px);
 }
 
 .hero-menu-inner {
