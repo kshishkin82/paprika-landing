@@ -77,8 +77,17 @@ a {
   text-decoration: none;
 }
 
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
 .btn-hot {
   background: linear-gradient(135deg, rgba(var(--hot-rgb), 1), rgba(var(--hot-rgb), 0.85));
   border-color: rgba(var(--hot-rgb), 1);
   color: #fff;
+}
+
+.btn-hot:hover {
+  box-shadow: 0 8px 28px rgba(var(--hot-rgb), 0.5);
 }

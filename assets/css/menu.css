@@ -38,18 +38,40 @@
 }
 
 .hero-menu a {
+  position: relative;
   color: var(--chalk);
   text-decoration: none;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  padding-bottom: 3px;
+  transition: color 0.2s ease;
+}
+
+.hero-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--hot);
+  transition: width 0.2s ease;
 }
 
 .hero-menu a:hover {
   color: var(--ink);
 }
 
+.hero-menu a:hover::after {
+  width: 100%;
+}
+
 @media (max-width: 768px) {
+  .hero-menu {
+    position: static;
+  }
+
   .hero-menu-inner {
     flex-direction: column;
     align-items: stretch;
