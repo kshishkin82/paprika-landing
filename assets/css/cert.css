@@ -1,10 +1,15 @@
 .cert-section {
   min-height: 500px;
   padding: 92px 0 112px;
-  background: #161414;
-  background-image: url("../img/cert.png");
+  background-color: #161414;
+  /* сертификат + тёплое свечение под ним */
+  background-image:
+    url("../img/cert.png"),
+    radial-gradient(620px 420px at 82% 78%, rgba(var(--hot-rgb), 0.24), rgba(0, 0, 0, 0) 70%),
+    linear-gradient(180deg, #110e0e, #1b1515);
   background-repeat: no-repeat;
-  background-position: right bottom;
+  background-position: right bottom, 0 0, 0 0;
+  background-size: auto, auto, auto;
 }
 
 .cert-inner {
@@ -23,29 +28,44 @@
 .cert-copy p {
   margin: 14px 0 0;
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.65;
   color: var(--chalk);
-  max-width: 56ch;
+  max-width: 54ch;
 }
 
 .cert-copy .btn {
-  margin-top: 18px;
+  margin-top: 26px;
 }
 
 @media (max-width: 1024px) {
   .cert-section {
-    background-size: 50%;
+    background-size: 50%, auto, auto;
+  }
+
+  /* текст не заходит на картинку сертификата */
+  .cert-copy p {
+    max-width: 44vw;
   }
 }
 
 @media (max-width: 768px) {
-  .cert-inner {
-    min-height: auto;
-    padding-bottom: 200px;
+  .cert-section {
+    padding: 60px 0 0;
+    background-image:
+      url("../img/cert.png"),
+      radial-gradient(360px 260px at 70% 88%, rgba(var(--hot-rgb), 0.26), rgba(0, 0, 0, 0) 70%),
+      linear-gradient(180deg, #110e0e, #1b1515);
+    background-size: 84%, auto, auto;
+    background-position: right bottom, 0 0, 0 0;
   }
 
-  .cert-section {
-    background-size: 84%;
-    background-position: right bottom;
+  .cert-copy p {
+    max-width: 54ch;
+  }
+
+  .cert-inner {
+    min-height: auto;
+    /* высота картинки сертификата: 84% ширины экрана × (427 / 683) */
+    padding: 0 0 calc(52.5vw + 24px);
   }
 }

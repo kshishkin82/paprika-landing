@@ -1,50 +1,43 @@
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  border-bottom: 1px solid var(--card-border);
-  background: rgba(11, 11, 11, 0.95);
-  backdrop-filter: blur(8px);
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-  padding: 8px 0;
-}
-
-.logo {
-  width: 143px;
-  height: auto;
-}
-
 .hero-menu {
   position: sticky;
   top: 0;
   z-index: 10;
   border-top: 1px solid var(--card-border);
   border-bottom: 1px solid var(--card-border);
-  background: rgba(11, 11, 11, 0.92);
-  backdrop-filter: blur(8px);
+  background: rgba(11, 11, 11, 0.86);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  transition: box-shadow 0.25s ease;
+}
+
+.hero-menu.is-stuck {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 .hero-menu-inner {
   display: flex;
-  gap: 20px;
+  gap: 26px;
   align-items: center;
-  padding: 16px 0;
+  min-height: 60px;
+  padding: 10px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hero-menu-inner::-webkit-scrollbar {
+  display: none;
 }
 
 .hero-menu a {
   position: relative;
   color: var(--chalk);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 14px !important;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding-bottom: 3px;
+  letter-spacing: 0.1em;
+  padding: 6px 0;
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 
@@ -53,18 +46,58 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 2px;
   background: var(--hot);
-  transition: width 0.2s ease;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease);
 }
 
-.hero-menu a:hover {
+.hero-menu a:hover,
+.hero-menu a.is-active {
   color: var(--ink);
 }
 
-.hero-menu a:hover::after {
-  width: 100%;
+.hero-menu a:hover::after,
+.hero-menu a.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Кнопка записи: появляется, когда меню прилипло ---------- */
+.hero-menu a.menu-cta {
+  margin-left: auto;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--hot);
+  color: #fff;
+  font-size: 13px !important;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s var(--ease), visibility 0.25s, background-color 0.2s ease;
+}
+
+.hero-menu a.menu-cta::after {
+  display: none;
+}
+
+.hero-menu a.menu-cta:hover {
+  background: var(--hot-deep);
+}
+
+.hero-menu.is-stuck a.menu-cta {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+@media (max-width: 1023px) {
+  .hero-menu a.menu-cta {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -75,14 +108,39 @@
   .hero-menu-inner {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-    padding: 16px 0 18px;
+    gap: 0;
+    padding: 6px 0;
   }
 
   .hero-menu a {
-    display: block;
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px !important;
     line-height: 1.2;
-    padding: 4px 0;
+    padding: 13px 0;
+  }
+
+  .hero-menu a + a {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* стрелка справа вместо подчёркивания */
+  .hero-menu a::after {
+    position: static;
+    width: 8px;
+    height: 8px;
+    background: none;
+    border-right: 2px solid var(--hot);
+    border-bottom: 2px solid var(--hot);
+    transform: rotate(-45deg);
+    transform-origin: center;
+    transition: none;
+    margin-right: 4px;
+  }
+
+  .hero-menu a:hover::after,
+  .hero-menu a.is-active::after {
+    transform: rotate(-45deg);
   }
 }

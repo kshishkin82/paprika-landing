@@ -68,16 +68,17 @@
 - Global non-heading font-size rule:
   - `clamp(15px, 17px, 20px)` in `base.css` (with `!important`).
 - All `h2` globally styled similar to contacts style (underline + weight + clamp size).
-- Footer has fixed height `1000px` (explicit request).
+- Footer is one viewport tall under the sticky menu (was fixed `1000px`); copyright pinned to the bottom.
 
 ## Data sources used
 - Schedule cards: `http://5.188.31.156/raspisanie/`
 - Gallery photos: `http://5.188.31.156/fotogalereya/marrakesh-2/`
 
 ## Caveats to remember
-- `script.js` toggles `.menu.is-open`, but currently there is no header menu button in DOM.
+- `script.js` was rewritten: scroll-spy, reveal, reviews carousel, gallery lightbox (dead `.menu-toggle` code removed).
+- `.contacts-title` no longer shrinks to 16px on phones (matches other h2).
 - Because of global font-size override + many iterative tweaks, mobile typography may need another pass.
-- `events.css` still contains some legacy selectors (`.event-dot`) no longer used in HTML.
+- Design pass (2026-11-17): hero got a logo/address row and an eyebrow; mc cards are tall photo cards with a date chip; events got numbered format cards, a glass "how it goes" panel and a CTA; reviews/contacts moved to the warm `--paper` background; contacts are aligned to the page container with the map filling the free height; sticky menu shows «Записаться» once the hero is scrolled away. Details of the rules are in `CLAUDE.md`.
 
 ## Resume checklist
 1. Validate T/P breakpoints visually in browser (hero, menu, mc, reviews, cert, contacts).

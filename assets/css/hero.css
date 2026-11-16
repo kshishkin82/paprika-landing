@@ -1,23 +1,62 @@
 .hero {
+  position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--card-border);
   background:
-    radial-gradient(1200px 480px at 16% 0%, rgba(var(--hot-rgb), 0.18), rgba(0, 0, 0, 0) 60%),
-    radial-gradient(900px 520px at 92% 10%, rgba(57, 179, 177, 0.18), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(620px 520px at 22% 62%, rgba(var(--hot-rgb), 0.22), rgba(0, 0, 0, 0) 68%),
+    radial-gradient(1000px 520px at 96% 0%, rgba(226, 150, 74, 0.13), rgba(0, 0, 0, 0) 60%),
     var(--bg);
-  padding: 100px 0 0;
+  padding: 0;
 }
 
-.hero h3 {
-  font-size: clamp(30px, 2.6vw, 58px);
-  font-weight: 400;
+/* ---------- Верхняя строка: логотип + адрес ---------- */
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0 0;
+}
+
+.hero-logo {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.hero-logo img {
+  display: block;
+  width: 148px;
+  height: auto;
+}
+
+.hero-place {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--chalk);
+  font-size: 15px !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.hero-place:hover {
   color: var(--ink);
-  margin-bottom: 26px;
 }
 
+.hero-place svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  fill: var(--hot);
+}
+
+/* ---------- Основной блок ---------- */
 .hero-inner {
-  min-height: 500px;
-  background-image: url("../img/rabbit.png");
+  display: flex;
+  align-items: center;
+  min-height: 520px;
+  margin-top: 26px;
+  background-image: url("../img/rabbit-w.webp");
   background-position: left bottom;
   background-repeat: no-repeat;
   background-size: auto 500px;
@@ -26,78 +65,146 @@
 .hero-text {
   max-width: 60%;
   margin-left: 500px;
-  padding-bottom: 24px;
+  padding: 12px 0 44px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px !important;
+  color: #f0a59f !important;
+  font-size: 13px !important;
+  font-weight: 700;
+  line-height: 1.3 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-eyebrow::before {
+  content: "";
+  flex: 0 0 28px;
+  height: 2px;
+  background: var(--hot);
 }
 
 .hero-text h1 {
-  font-size: clamp(31px, 3.9vw, 57px);
-  line-height: 1.02;
+  font-size: clamp(31px, 3.9vw, 54px);
+  line-height: 1.12;
   font-weight: 400;
-  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px 0;
 }
 
 .hero-text h2 {
   color: white;
-
 }
 
 .hero-text p {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   font-size: 17px;
-  line-height: 1.8;
-  color: var(--ink);
+  line-height: 1.7;
+  color: var(--chalk);
 }
 
-.hero-text .btn {
-  margin-top: 18px;
+.hero-slogan {
+  font-family: "Merriweather", serif;
+  font-size: clamp(24px, 2.2vw, 32px) !important;
+  font-style: italic;
+  line-height: 1.25 !important;
+  font-weight: 400;
+  color: var(--ink) !important;
+  margin: 22px 0 0 !important;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
 }
 
 @media (max-width: 992px) {
   .hero {
-    padding: 15px 0 0;
+    background:
+      radial-gradient(420px 320px at 50% 200px, rgba(var(--hot-rgb), 0.26), rgba(0, 0, 0, 0) 70%),
+      var(--bg);
   }
 
   .hero-inner {
+    display: block;
     background-position: center top;
     background-size: auto 280px;
     min-height: auto;
+    margin-top: 12px;
     padding-top: 300px;
   }
 
   .hero-text {
     max-width: 100%;
     margin-left: 0;
+    padding-top: 0;
   }
 
   .hero-text h1 {
-    font-size: 60px;
+    font-size: clamp(38px, 6.4vw, 56px);
   }
 
   .hero-text p {
     font-size: 20px;
   }
-
 }
 
 @media (max-width: 768px) {
   .hero {
-    padding: 15px 0 0;
+    background:
+      radial-gradient(320px 260px at 50% 170px, rgba(var(--hot-rgb), 0.28), rgba(0, 0, 0, 0) 70%),
+      var(--bg);
+  }
+
+  .hero-top {
+    padding-top: 16px;
+  }
+
+  .hero-logo img {
+    width: 118px;
+  }
+
+  .hero-place {
+    font-size: 14px !important;
   }
 
   .hero-inner {
     background-position: center top;
     background-size: auto 220px;
     min-height: auto;
-    padding-top: 236px;
-    padding-bottom: 24px;
+    padding-top: 240px;
+    padding-bottom: 8px;
+  }
+
+  .hero-text {
+    padding-bottom: 32px;
   }
 
   .hero-text h1 {
-    font-size: 49px;
+    font-size: clamp(32px, 9.4vw, 42px);
+    line-height: 1.15;
   }
 
   .hero-text p {
     font-size: 18px;
   }
 
+  .hero-eyebrow {
+    font-size: 11px !important;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-eyebrow::before {
+    display: none;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 auto;
+  }
 }

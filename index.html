@@ -8,10 +8,38 @@
       name="description"
       content="Кулинарные мастер-классы, корпоративы и праздники в Paprika Studio. Готовим, общаемся и ужинаем вместе."
     />
+    <meta name="theme-color" content="#0b0b0b" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:title" content="Paprika Studio — кулинарная студия в Волгограде" />
+    <meta
+      property="og:description"
+      content="Кулинарные мастер-классы, корпоративы и праздники. Готовим, общаемся и ужинаем вместе."
+    />
+    <meta property="og:image" content="./assets/img/rabbit.png" />
+    <link rel="icon" href="./assets/img/favicon.ico" sizes="16x16" />
+    <link rel="preload" as="image" href="./assets/img/rabbit-w.webp" type="image/webp" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Paprika Studio",
+        "description": "Кулинарная студия и школа в Волгограде: мастер-классы, корпоративы, праздники.",
+        "image": "./assets/img/logo.webp",
+        "email": "vm.83@mail.ru",
+        "telephone": ["+79375301090", "+79275100853"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "проспект им. В.И. Ленина 110, 2 этаж",
+          "addressLocality": "Волгоград",
+          "addressCountry": "RU"
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Merriweather:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/css/base.css" />
@@ -23,12 +51,23 @@
     <link rel="stylesheet" href="./assets/css/gallery.css" />
     <link rel="stylesheet" href="./assets/css/cert.css" />
     <link rel="stylesheet" href="./assets/css/contacts.css" />
+    <link rel="stylesheet" href="./assets/css/order.css" />
   </head>
   <body>
-    <main id="top">
-      <section class="hero">
+    <a class="skip-link" href="#mc">Перейти к содержимому</a>
+      <section class="hero" id="top">
+        <div class="container hero-top">
+          <a href="#top" class="hero-logo" aria-label="Паприка — кулинарная студия">
+            <img src="./assets/img/logo.webp" alt="Паприка" width="148" height="53" />
+          </a>
+          <a href="#contacts" class="hero-place">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a5.6 5.6 0 0 0-5.6 5.6C2.4 9.8 8 16 8 16s5.6-6.2 5.6-10.4A5.6 5.6 0 0 0 8 0zm0 7.8a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4z"></path></svg>
+            Волгоград, пр. Ленина, 110
+          </a>
+        </div>
         <div class="container hero-inner">
           <div class="hero-text">
+            <p class="hero-eyebrow">Мастер-классы · Корпоративы · Праздники</p>
             <h1>Приглашаем Вас в нашу кулинарную студию</h1>
             <p>
               Программа мастер-классов интересна и новичкам, и опытным кулинарам. Здесь можно
@@ -40,13 +79,16 @@
               Паприка — первая кулинарная школа Волгограда. Мы проводим обучение поваров и
               кондитеров, научим как любителей так и профессионалов.
             </p>
-            <h3>Готовить с нами — легко!</h3>
-            <a href="#contacts" class="btn btn-hot">Записаться</a>
+            <p class="hero-slogan">Готовить с нами — легко!</p>
+            <div class="hero-actions">
+              <a href="#contacts" class="btn btn-hot" data-order="master_class">Записаться</a>
+              <a href="tel:+79375301090" class="btn btn-ghost">+7 (937) 530-10-90</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <nav class="hero-menu">
+      <nav class="hero-menu" aria-label="Разделы страницы">
         <div class="container hero-menu-inner">
           <a href="#mc">Мастер-классы</a>
           <a href="#events">Мероприятия</a>
@@ -54,11 +96,18 @@
           <a href="#gallery">Галерея</a>
           <a href="#cert">Сертификат</a>
           <a href="#contacts">Контакты</a>
+          <a href="#contacts" class="menu-cta" data-order="master_class">Записаться</a>
         </div>
       </nav>
 
+    <main id="main">
+
       <section id="mc" class="mc-section">
+        <div class="container">
+          <h2 class="mc-title-main reveal">Ближайшие мастер-классы</h2>
+        </div>
         <div class="container mc-grid">
+          <!--cms:mc-->
           <a
             href="http://5.188.31.156/raspisanie/maslenicza-party/"
             class="mc-card"
@@ -90,12 +139,13 @@
             <span class="mc-title">Смотреть все мастер классы</span>
             <span class="mc-date">Открыть расписание</span>
           </a>
+          <!--/cms:mc-->
         </div>
       </section>
 
       <section id="events" class="events-section">
         <div class="container events-head-wrap">
-          <h2 class="events-title">Мероприятия</h2>
+          <h2 class="events-title reveal">Мероприятия</h2>
         </div>
         <div class="container events-inner">
           <div class="events-left">
@@ -144,6 +194,7 @@
                 <strong>8 человек</strong>
               </div>
             </div>
+            <a href="#contacts" class="btn btn-hot events-cta" data-order="event">Обсудить мероприятие</a>
           </div>
         </div>
       </section>
@@ -152,7 +203,7 @@
         <div class="container reviews-inner">
           <div class="reviews-head">
             <div class="reviews-copy">
-              <h2 class="reviews-title">Отзывы гостей</h2>
+              <h2 class="reviews-title reveal">Отзывы гостей</h2>
               <p class="reviews-lead">
                 Мы бережно собираем обратную связь после каждого мастер-класса, чтобы улучшать
                 программу, сервис и атмосферу в студии.
@@ -192,16 +243,17 @@
           </div>
 
           <div class="reviews-wrap">
-            <button class="reviews-nav reviews-nav-left" type="button" aria-label="Назад">
+            <button class="reviews-nav reviews-nav-left" type="button" aria-label="Предыдущий отзыв" aria-controls="reviews-track">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                 <path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"></path>
               </svg>
             </button>
 
-            <div class="reviews-grid">
+            <div class="reviews-grid" id="reviews-track" tabindex="0" aria-label="Отзывы гостей">
+              <!--cms:reviews-->
               <article class="review-card">
                 <div class="review-head">
-                  <img src="https://i.pravatar.cc/160?img=5" alt="Алина Ш." class="review-avatar" />
+                  <img src="https://i.pravatar.cc/160?img=5" alt="Алина Ш." class="review-avatar" loading="lazy" width="64" height="64" />
                   <div>
                     <h3>Алина Ш.</h3>
                     <p>Март 2025</p>
@@ -215,7 +267,7 @@
 
               <article class="review-card">
                 <div class="review-head">
-                  <img src="https://i.pravatar.cc/160?img=12" alt="Михаил К." class="review-avatar" />
+                  <img src="https://i.pravatar.cc/160?img=12" alt="Михаил К." class="review-avatar" loading="lazy" width="64" height="64" />
                   <div>
                     <h3>Михаил К.</h3>
                     <p>Февраль 2025</p>
@@ -233,6 +285,9 @@
                     src="https://i.pravatar.cc/160?img=20"
                     alt="Екатерина Л."
                     class="review-avatar"
+                    loading="lazy"
+                    width="64"
+                    height="64"
                   />
                   <div>
                     <h3>Екатерина Л.</h3>
@@ -244,9 +299,10 @@
                   соусами и временем жарки.
                 </p>
               </article>
+              <!--/cms:reviews-->
             </div>
 
-            <button class="reviews-nav reviews-nav-right" type="button" aria-label="Вперед">
+            <button class="reviews-nav reviews-nav-right" type="button" aria-label="Следующий отзыв" aria-controls="reviews-track">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                 <path d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"></path>
               </svg>
@@ -257,7 +313,7 @@
 
       <section id="gallery" class="gallery-section">
         <div class="container">
-          <h2 class="gallery-title">Фотогалерея</h2>
+          <h2 class="gallery-title reveal">Фотогалерея</h2>
           <div class="gallery-text">
             <p>
               Каждый мастер-класс в Paprika — это не только новые рецепты и техники, но и живая
@@ -273,23 +329,25 @@
 
           </div>
           <div class="gallery-grid">
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/9-6.jpg" alt="Марракеш 1" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/7-7.jpg" alt="Марракеш 2" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/1-8.jpg" alt="Марракеш 3" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/6-7.jpg" alt="Марракеш 4" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/3-7.jpg" alt="Марракеш 5" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/4-9.jpg" alt="Марракеш 6" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/2-6.jpg" alt="Марракеш 7" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/10-6.jpg" alt="Марракеш 8" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/8-7.jpg" alt="Марракеш 9" loading="lazy" /></div>
-            <div class="gallery-item"><img src="http://5.188.31.156/wp-content/uploads/2026/03/5-8.jpg" alt="Марракеш 10" loading="lazy" /></div>
+            <!--cms:gallery-->
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/9-6.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/9-6.jpg" alt="Мастер-класс «Марракеш», фото 1" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/7-7.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/7-7.jpg" alt="Мастер-класс «Марракеш», фото 2" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/1-8.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/1-8.jpg" alt="Мастер-класс «Марракеш», фото 3" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/6-7.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/6-7.jpg" alt="Мастер-класс «Марракеш», фото 4" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/3-7.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/3-7.jpg" alt="Мастер-класс «Марракеш», фото 5" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/4-9.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/4-9.jpg" alt="Мастер-класс «Марракеш», фото 6" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/2-6.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/2-6.jpg" alt="Мастер-класс «Марракеш», фото 7" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/10-6.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/10-6.jpg" alt="Мастер-класс «Марракеш», фото 8" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/8-7.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/8-7.jpg" alt="Мастер-класс «Марракеш», фото 9" loading="lazy" decoding="async" /></a>
+            <a class="gallery-item" href="http://5.188.31.156/wp-content/uploads/2026/03/5-8.jpg" data-lightbox><img src="http://5.188.31.156/wp-content/uploads/2026/03/5-8.jpg" alt="Мастер-класс «Марракеш», фото 10" loading="lazy" decoding="async" /></a>
+            <!--/cms:gallery-->
           </div>
         </div>
       </section>
 
       <section id="cert" class="cert-section">
         <div class="container cert-inner">
-          <div class="cert-copy">
+          <div class="cert-copy reveal">
             <h2>Подарочный сертификат</h2>
             <p>
               Идея подарка, которая точно попадет в настроение: вечер в кулинарной студии, живые
@@ -299,7 +357,7 @@
               Сертификат можно оформить на конкретный мастер-класс или на любую сумму. Доступен в
               электронном и печатном формате.
             </p>
-            <a href="#contacts" class="btn btn-hot">Заказать сертификат</a>
+            <a href="#contacts" class="btn btn-hot" data-order="certificate">Заказать сертификат</a>
           </div>
         </div>
       </section>
@@ -346,11 +404,17 @@
                 <a href="tel:+79275100853">+7 (927) 510-08-53</a>
               </div>
             </div>
+
+            <div class="contacts-actions">
+              <a href="#contacts" class="btn btn-hot" data-order="master_class">Оставить заявку</a>
+            </div>
           </div>
 
           <div class="contacts-right">
             <iframe
               src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=false&amp;source=constructor-api&amp;um=constructor%3AQ-ceOyvc1OzO3IzwGTnyjwjkLpmOa143"
+              title="Paprika Studio на Яндекс Картах"
+              loading="lazy"
               frameborder="0"
               allowfullscreen="true"
               width="100%"
@@ -359,9 +423,22 @@
             ></iframe>
           </div>
         </div>
+        <div class="footer-copy">
+          <a href="#top" class="footer-logo" aria-label="Паприка — наверх">
+            <img src="./assets/img/logo.webp" alt="Паприка" width="120" height="43" loading="lazy" />
+          </a>
+          <p>© <span data-year>2026</span> Paprika Studio — кулинарная студия в Волгограде</p>
+        </div>
       </div>
     </footer>
 
-    <script src="./script.js"></script>
+    <a href="tel:+79375301090" class="call-fab" aria-label="Позвонить в Paprika Studio">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true"><path d="M14.2 16C6.4 16 0 9.6 0 1.8 0 .8.8 0 1.8 0h2.7c1 0 1.8.8 1.8 1.8 0 .8.1 1.7.4 2.5.2.6 0 1.3-.4 1.8L5.1 7.3C6 8.8 7.3 10.1 8.8 11L10 9.8c.5-.5 1.2-.6 1.8-.4.8.3 1.6.4 2.5.4 1 0 1.8.8 1.8 1.8v2.7c-.1.9-.9 1.7-1.9 1.7z"></path></svg>
+      <span>Позвонить</span>
+    </a>
+
+    <!--cms:order-modal--><!--/cms:order-modal-->
+
+    <script src="./script.js" defer></script>
   </body>
 </html>

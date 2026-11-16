@@ -1,5 +1,5 @@
 .gallery-section {
-  padding: 92px 0 124px 0;
+  padding: 92px 0 112px;
   background: #000;
 }
 
@@ -10,13 +10,16 @@
   margin-bottom: 24px;
 }
 
+/* два абзаца — двумя колонками, как в журнале */
 .gallery-text {
-  margin-bottom: 34px;
-  max-width: 92ch;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 36px;
+  margin-bottom: 36px;
 }
 
 .gallery-text p {
-  margin: 0 0 14px;
+  margin: 0;
   color: var(--chalk);
   font-size: 15px;
   line-height: 1.7;
@@ -25,13 +28,17 @@
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .gallery-item {
-  border-radius: 8px;
+  position: relative;
+  display: block;
+  border-radius: 14px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
+  background: #1a1414;
+  cursor: zoom-in;
 }
 
 .gallery-grid img {
@@ -40,21 +47,144 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
-  transition: transform 0.25s ease;
+  transition: transform 0.6s var(--ease);
+}
+
+/* затемнение и значок «увеличить» при наведении */
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Ccircle cx='22' cy='22' r='21' fill='%23d7342c'/%3E%3Cpath d='M22 14v16M14 22h16' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+      center / 44px 44px no-repeat,
+    rgba(10, 7, 7, 0.35);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .gallery-item:hover img {
-  transform: scale(1.06);
+  transform: scale(1.07);
+}
+
+.gallery-item:hover::after,
+.gallery-item:focus-visible::after {
+  opacity: 1;
 }
 
 @media (max-width: 900px) {
+  .gallery-text {
+    grid-template-columns: 1fr;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 768px) {
+  .gallery-section {
+    padding: 60px 0 72px;
+  }
+
   .gallery-grid {
-    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .gallery-item {
+    border-radius: 10px;
+  }
+}
+
+/* ---------- Лайтбокс ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-figure {
+  margin: 0;
+  max-width: min(1100px, 100%);
+  text-align: center;
+}
+
+.lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: 74vh;
+  margin: 0 auto;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.lightbox-figure figcaption {
+  margin-top: 14px;
+}
+
+.lightbox-desc {
+  max-width: 64ch;
+  margin: 0 auto 10px;
+  color: var(--ink);
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.lightbox-caption {
+  color: var(--chalk);
+  font-size: 14px !important;
+}
+
+.lightbox-btn {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 30px !important;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lightbox-btn:hover {
+  background: rgba(var(--hot-rgb), 0.85);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+@media (max-width: 600px) {
+  .lightbox {
+    padding: 64px 8px 24px;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    bottom: 20px;
+  }
+
+  .lightbox-prev {
+    left: calc(50% - 64px);
+  }
+
+  .lightbox-next {
+    right: calc(50% - 64px);
   }
 }

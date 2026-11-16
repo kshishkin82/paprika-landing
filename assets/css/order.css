@@ -1,0 +1,230 @@
+/* ---------- Форма заявки (модальное окно) ---------- */
+.order-modal {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  background: #151111;
+  color: var(--ink);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.order-modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+
+.order-form,
+.order-success {
+  position: relative;
+  padding: 28px 28px 24px;
+}
+
+.order-modal h2 {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.order-lead,
+.order-success p {
+  margin: 0 0 18px;
+  color: var(--chalk);
+  line-height: 1.5;
+}
+
+.order-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--ink);
+  font-size: 22px !important;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.order-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.order-field {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.order-field span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 13px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.order-field[hidden] {
+  display: none;
+}
+
+.order-form input,
+.order-form select,
+.order-form textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px !important;
+}
+
+/* своя стрелка вместо системной: с отступом от края */
+.order-form select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 46px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 8'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23cbbfb4' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      right 18px center / 14px 8px no-repeat,
+    rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+.order-form select option {
+  background: #151111;
+}
+
+.order-form textarea {
+  display: block;
+  min-height: 92px;
+  resize: vertical;
+}
+
+/* ---------- Количество гостей: − число + ---------- */
+.order-field > label {
+  display: block;
+}
+
+.order-stepper {
+  display: flex;
+  align-items: stretch;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.order-stepper:focus-within {
+  border-color: rgba(var(--hot-rgb), 0.9);
+  box-shadow: 0 0 0 3px rgba(var(--hot-rgb), 0.25);
+}
+
+.order-form .order-stepper input {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  text-align: center;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.order-form .order-stepper input:focus {
+  box-shadow: none;
+}
+
+.order-stepper input::-webkit-outer-spin-button,
+.order-stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.order-stepper button {
+  flex: 0 0 52px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 22px !important;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.order-stepper button:first-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.order-stepper button:last-child {
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.order-stepper button:hover {
+  background: rgba(var(--hot-rgb), 0.85);
+  color: #fff;
+}
+
+.order-stepper button:focus-visible {
+  outline-offset: -3px;
+}
+
+.order-form input:focus,
+.order-form select:focus,
+.order-form textarea:focus {
+  outline: none;
+  border-color: rgba(var(--hot-rgb), 0.9);
+  box-shadow: 0 0 0 3px rgba(var(--hot-rgb), 0.25);
+}
+
+.order-form [aria-invalid="true"] {
+  border-color: #ff6b5e;
+}
+
+.order-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.order-error {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 80, 60, 0.12);
+  color: #ffb1a8;
+}
+
+.order-submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.order-submit[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.order-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 12px !important;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .order-form,
+  .order-success {
+    padding: 24px 18px 18px;
+  }
+}
