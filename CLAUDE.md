@@ -77,7 +77,7 @@ assets/
 ## Development
 
 - `cp .env.example .env`, set `ADMIN_PASSWORD`, then `npm run dev` → site http://localhost:3000, admin http://localhost:3000/admin/
-- `Makefile` wraps the same commands: `make` (help), `make env`, `make dev`, `make start`, `make password PASS=<new>`, `make notify-test`, `make notify-ids`, `make reset` (asks before deleting `data/`)
+- `Makefile` wraps the same commands: `make` (help), `make env`, `make dev` (foreground, watch), `make start` / `stop` / `restart` / `status` / `logs` (background server, PID + log in `.run/`, gitignored), `make password PASS=<new>`, `make notify-test`, `make notify-ids`, `make reset` (asks, stops the server, deletes `data/`)
 - `npm start` for production; `npm run password -- <new>` changes the DB-stored password (used when `ADMIN_PASSWORD` is not set)
 - Reset local data: stop the server and delete `data/` (seed refills it from the old static content)
 - Static-only preview still works: open `index.html` directly (no CMS data, no order form)
