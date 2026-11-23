@@ -60,6 +60,17 @@ if ("IntersectionObserver" in window && sections.length) {
   sections.forEach((section) => spy.observe(section));
 }
 
+// сразу подсвечиваем пункт, по которому нажали
+menuLinks.forEach((link) =>
+  link.addEventListener("click", () => {
+    menuLinks.forEach((other) => {
+      other.classList.toggle("is-active", other === link);
+      if (other === link) other.setAttribute("aria-current", "true");
+      else other.removeAttribute("aria-current");
+    });
+  })
+);
+
 /* ---------- Плавное появление блоков ---------- */
 const revealItems = document.querySelectorAll(".reveal, .mc-card, .event-type, .review-card, .gallery-item");
 if ("IntersectionObserver" in window && !prefersReducedMotion) {

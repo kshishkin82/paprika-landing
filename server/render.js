@@ -159,7 +159,7 @@ export function createRenderer({ root, repo, now }) {
     return html;
   }
 
-  function layout({ title, description, body, upcoming }) {
+  function layout({ title, description, body, upcoming, back = "/" }) {
     return `<!doctype html>
 <html lang="ru">
   <head>
@@ -180,8 +180,9 @@ export function createRenderer({ root, repo, now }) {
     <link rel="stylesheet" href="/assets/css/mkpage.css" />
   </head>
   <body class="page">
-    <nav class="hero-menu" aria-label="Разделы сайта">
+    <nav class="hero-menu hero-menu-sub" aria-label="Разделы сайта">
       <div class="container hero-menu-inner">
+        <a class="menu-back" href="${esc(back)}">Вернуться</a>
         <a href="/">Главная</a>
         <a href="/mk">Мастер-классы</a>
         <a href="/#events">Мероприятия</a>
@@ -237,6 +238,7 @@ ${body}
       description: markdownToText(mc.description_md) || `Кулинарный мастер-класс «${mc.title}» в Paprika Studio, Волгоград.`,
       body,
       upcoming,
+      back: "/mk",
     });
   }
 

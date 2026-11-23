@@ -94,6 +94,11 @@
   transform: none;
 }
 
+/* ---------- «Вернуться» на внутренних страницах: только в телефоне ---------- */
+.hero-menu a.menu-back {
+  display: none;
+}
+
 @media (max-width: 1023px) {
   .hero-menu a.menu-cta {
     display: none;
@@ -110,6 +115,7 @@
     align-items: stretch;
     gap: 0;
     padding: 6px 0;
+    overflow: visible;
   }
 
   .hero-menu a {
@@ -142,5 +148,67 @@
   .hero-menu a:hover::after,
   .hero-menu a.is-active::after {
     transform: rotate(-45deg);
+  }
+
+  /* подсветка выбранного пункта */
+  .hero-menu a {
+    margin: 0 -12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 10px;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .hero-menu a:active,
+  .hero-menu a.is-active {
+    color: var(--ink);
+    background: rgba(var(--hot-rgb), 0.16);
+    box-shadow: inset 3px 0 0 var(--hot);
+  }
+
+  /* разделитель линией без загибов на скруглённых углах */
+  .hero-menu a + a {
+    border-top: none;
+  }
+
+  .hero-menu a + a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .hero-menu a.is-active + a::before,
+  .hero-menu a + a.is-active::before {
+    display: none;
+  }
+
+  .hero-menu-sub a:not(.menu-back) {
+    display: none;
+  }
+
+  .hero-menu-sub a.menu-back {
+    display: flex;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  /* стрелка слева, смотрит назад */
+  .hero-menu-sub a.menu-back::after {
+    display: none;
+  }
+
+  .hero-menu-sub a.menu-back::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid var(--hot);
+    border-bottom: 2px solid var(--hot);
+    transform: rotate(45deg);
+    margin-left: 4px;
   }
 }
