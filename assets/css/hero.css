@@ -13,23 +13,25 @@
 .hero-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
-  padding: 22px 0 0;
+  padding: 10px 0 0;
 }
 
 .hero-logo {
   display: block;
   flex: 0 0 auto;
+  /* левый край логотипа = левый край .hero-text */
+  margin-left: 500px;
 }
 
 .hero-logo img {
   display: block;
-  width: 148px;
+  width: 220px;
   height: auto;
 }
 
 .hero-place {
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -89,7 +91,7 @@
 }
 
 .hero-text h1 {
-  font-size: clamp(31px, 3.9vw, 54px);
+  font-size: clamp(31px, 2.9vw, 54px);
   line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -140,6 +142,10 @@
     padding-top: 300px;
   }
 
+  .hero-logo {
+    margin-left: 0;
+  }
+
   .hero-text {
     max-width: 100%;
     margin-left: 0;
@@ -147,7 +153,7 @@
   }
 
   .hero-text h1 {
-    font-size: clamp(38px, 6.4vw, 56px);
+    font-size: clamp(38px, 5.4vw, 56px);
   }
 
   .hero-text p {
@@ -163,11 +169,17 @@
   }
 
   .hero-top {
+    flex-direction: column;
+    gap: 10px;
     padding-top: 16px;
   }
 
+  .hero-place {
+    margin-left: 0;
+  }
+
   .hero-logo img {
-    width: 118px;
+    width: 176px;
   }
 
   .hero-place {
@@ -187,7 +199,7 @@
   }
 
   .hero-text h1 {
-    font-size: clamp(32px, 9.4vw, 42px);
+    font-size: clamp(32px, 8.4vw, 42px);
     line-height: 1.15;
   }
 
