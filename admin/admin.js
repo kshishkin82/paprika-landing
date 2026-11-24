@@ -1,4 +1,4 @@
-import { renderMarkdown, escapeHtml as esc } from "/shared/md.js";
+import { renderMarkdown, markdownToText, escapeHtml as esc } from "/shared/md.js";
 
 const app = document.getElementById("app");
 const toastsEl = document.getElementById("toasts");
@@ -514,7 +514,7 @@ function bindMdEditor(root) {
 async function viewMasterClassEdit(idParam) {
   const isNew = idParam === "new";
   const mc = isNew
-    ? { title: "", slug: "", description_md: "", next_date: "", published: true, show_on_home: false, photos: [] }
+    ? { title: "", slug: "", description_md: "", next_date: "", published: true, show_on_home: false, seo_title: "", seo_description: "", photos: [] }
     : await api("GET", `master-classes/${idParam}`);
   let photos = [...mc.photos];
   let pending = 0;
@@ -552,6 +552,21 @@ async function viewMasterClassEdit(idParam) {
       </div>
 
       <div class="panel panel-pad" style="margin-top:16px">
+        <div class="page-head" style="margin-bottom:12px"><h2 style="margin:0;font-size:18px">SEO</h2>
+          <span class="muted">Необязательно: пустые поля заполнятся автоматически</span></div>
+        <div class="form-grid">
+          <label class="field field-wide"><span>Заголовок страницы (title)</span>
+            <input name="seo_title" maxlength="150" value="${esc(mc.seo_title || "")}" />
+            <small class="seo-hint" data-for="seo_title" data-rec="60"></small>
+          </label>
+          <label class="field field-wide"><span>Описание (meta description)</span>
+            <textarea name="seo_description" maxlength="300" rows="3" style="min-height:0">${esc(mc.seo_description || "")}</textarea>
+            <small class="seo-hint" data-for="seo_description" data-rec="160"></small>
+          </label>
+        </div>
+      </div>
+
+      <div class="panel panel-pad" style="margin-top:16px">
         <div class="page-head" style="margin-bottom:12px"><h2 style="margin:0;font-size:18px">Галерея</h2>
           <span class="muted">Первое фото — обложка карточки</span></div>
         <div class="photo-grid mc-photos"></div>
@@ -576,6 +591,26 @@ async function viewMasterClassEdit(idParam) {
   form.slug.addEventListener("input", () => {
     main.querySelector(".slug-preview").textContent = form.slug.value || "…";
   });
+
+  // SEO: плейсхолдеры показывают автоматические значения, подсказка — длину
+  const seoDefaults = {
+    seo_title: () => `${form.title.value.trim() || "Название"} — мастер-класс в студии Паприка`,
+    seo_description: () =>
+      markdownToText(form.description_md.value) ||
+      `Кулинарный мастер-класс «${form.title.value.trim() || "…"}» в студии Паприка, Волгоград.`,
+  };
+  function updateSeo() {
+    for (const hint of main.querySelectorAll(".seo-hint")) {
+      const input = form[hint.dataset.for];
+      const rec = Number(hint.dataset.rec);
+      input.placeholder = seoDefaults[hint.dataset.for]();
+      const len = (input.value.trim() || input.placeholder).length;
+      hint.textContent = `${input.value.trim() ? "" : "Автоматически · "}${len} симв., рекомендуется до ${rec}`;
+      hint.classList.toggle("seo-long", len > rec);
+    }
+  }
+  form.addEventListener("input", updateSeo);
+  updateSeo();
 
   function renderPhotos() {
     grid.innerHTML =
@@ -647,6 +682,8 @@ async function viewMasterClassEdit(idParam) {
       published: form.published.checked,
       show_on_home: form.show_on_home.checked,
       description_md: form.description_md.value,
+      seo_title: form.seo_title.value,
+      seo_description: form.seo_description.value,
       photos,
     };
     try {

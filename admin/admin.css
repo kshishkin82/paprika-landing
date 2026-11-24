@@ -939,3 +939,7 @@ tr.drop-after td {
   flex-wrap: wrap;
   gap: 4px;
 }
+
+.field small.seo-long {
+  color: #b5551a;
+}

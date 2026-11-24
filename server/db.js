@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS master_classes (
   published INTEGER NOT NULL DEFAULT 1,
   sort INTEGER NOT NULL DEFAULT 0,     -- ручной порядок в админке и на сайте
   show_on_home INTEGER NOT NULL DEFAULT 0, -- 1 = выводить в блоке «Ближайшие мастер-классы» на главной
+  seo_title TEXT NOT NULL DEFAULT '',       -- <title> страницы; пусто = «<название> — мастер-класс в студии Паприка»
+  seo_description TEXT NOT NULL DEFAULT '', -- meta description; пусто = начало описания
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -98,6 +100,8 @@ function migrate(db) {
          SELECT id FROM master_classes WHERE published = 1 AND next_date >= ? ORDER BY sort, id LIMIT 3)`
     ).run(now);
   }
+  if (!cols.includes("seo_title")) db.exec("ALTER TABLE master_classes ADD COLUMN seo_title TEXT NOT NULL DEFAULT ''");
+  if (!cols.includes("seo_description")) db.exec("ALTER TABLE master_classes ADD COLUMN seo_description TEXT NOT NULL DEFAULT ''");
   const gcols = db.prepare("PRAGMA table_info(gallery_photos)").all().map((c) => c.name);
   if (!gcols.includes("description")) db.exec("ALTER TABLE gallery_photos ADD COLUMN description TEXT NOT NULL DEFAULT ''");
   if (!gcols.includes("published")) db.exec("ALTER TABLE gallery_photos ADD COLUMN published INTEGER NOT NULL DEFAULT 1");

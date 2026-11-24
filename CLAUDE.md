@@ -8,7 +8,8 @@ Static landing page for Paprika Studio — a cooking school in Volgograd, Russia
 - No build tools, no framework, no Tailwind
 - Fonts: Manrope + Merriweather via Google Fonts
 - CMS: Node.js (>= 22.13) + built-in `node:sqlite`, **zero npm dependencies**
-  - `server.js` — HTTP server: renders the landing from DB, `/mk`, `/mk/<slug>`, `/admin/`, JSON API
+  - `server.js` — HTTP server: renders the landing from DB, `/mk`, `/mk/<slug>`, `/admin/`, JSON API, `/sitemap.xml` + `/robots.txt` (absolute URLs from `SITE_URL`, else request host), styled 404 page (`render.notFound`, `noindex`, styles in `mkpage.css`)
+  - `server/pages.js` — SEO landing pages on the old WordPress URLs (`/nasha-studiya/`, `/fotogalereya/`, `/sertifikatyi/`, `/oplata/`, `/kontaktyi-i-shema-proezda/`, `/privacy-policy/`; content + title/description in `PAGES`, rendered by `render.staticPage`, styles in `assets/css/pages.css`) and 301 redirects from other indexed old URLs (`REDIRECTS`, `LEGACY_MC` → `/mk/<slug>` if published, else `LEGACY_SECTIONS`); old sitemaps for reference: `page-sitemap.xml`, `post-sitemap.xml`
   - `server/` — `db.js` (schema), `repo.js` (data access + validation), `render.js` (SSR), `auth.js` (password + sessions), `uploads.js`, `seed.js`, `set-password.js`
   - `shared/md.js` — safe Markdown renderer used by both server and admin preview
   - `admin/` — vanilla JS admin SPA (orders, master classes, gallery, reviews)
@@ -31,9 +32,11 @@ assets/
     reviews.css     # reviews cards + nav arrows + rating badges
     gallery.css     # photo gallery grid
     cert.css        # gift certificate section
-    contacts.css    # footer contacts + Yandex map
+    contacts.css    # contacts section + Yandex map + call-fab
+    footer.css      # shared site footer (landing + inner pages)
   img/
-    logo.webp
+    logo.webp       # landing (hero, footer, JSON-LD)
+    logo-soft.webp  # inner pages (menu, footer): white outline at 75% opacity
     rabbit.png / rabbit.webp   # webp is served via image-set, png is fallback
     cert.png / cert.webp
     events-bg.jpg
@@ -49,16 +52,19 @@ assets/
 5. `reviews-section` (#reviews)
 6. `gallery-section` (#gallery)
 7. `cert-section` (#cert)
-8. `site-footer` (#contacts) — also serves as the footer
+8. `site-footer` (#contacts) — contacts + map
+9. `page-footer` — shared site footer
 
 ## Key design rules
 
 - Global body font-size: `clamp(15px, 17px, 20px)` with `!important` in `base.css` — any other size on `p`/`a`/`span`/`li`/`strong`/`button` (chips, labels, buttons) needs its own `!important`
 - All `h2` globally styled with underline + weight + clamp size (contacts style)
-- Footer (#contacts) is one screen tall under the sticky menu (`min-height: calc(100dvh - var(--menu-h))`), copyright pinned to its bottom; grows with content on short screens; the map stretches to the free height
+- Contacts section (#contacts, `.site-footer`) is one screen tall under the sticky menu (`min-height: calc(100dvh - var(--menu-h))`); grows with content on short screens; the map stretches to the free height
+- Site footer (logo, nav columns, contacts, copyright + privacy link) is shared: `siteFooter()` in `server/render.js`, styles in `assets/css/footer.css`; on the landing it replaces the `<!--cms:site-footer-->` block (static copy inside is the fallback — regenerate it if the footer changes)
 - Palette tokens live in `base.css`: dark sections use `--bg`/`--ink`/`--chalk`, light sections (reviews, contacts) use `--paper`/`--paper-ink`/`--paper-muted`/`--paper-line`; accent is `--hot` (white text needs `--hot` or darker for contrast)
 - Shadows are neutral (black); the red accent is used for fills, rings and background gradients, not for glows
 - Hero: top row with logo + address link, eyebrow line above `h1`; sticky menu shows the «Записаться» button (`.menu-cta`) once the hero is scrolled away (`.is-stuck`, desktop ≥ 1024px)
+- Master-class SEO: optional `seo_title` / `seo_description` columns (admin «SEO» panel); empty → `defaultMcTitle` / `defaultMcDescription` in `server/render.js` (admin placeholders mirror them in `admin/admin.js`)
 - Master-class card: photo fills the card, bottom scrim, date chip above the title; markup comes from `server/render.js` (`mcCard`) and the static fallback in `index.html`
 - Cards revealed by JS get `.reveal`; hover lift on them needs a selector at least as specific as `.js .reveal.is-visible` (see `.mc-grid a.mc-card:hover`)
 

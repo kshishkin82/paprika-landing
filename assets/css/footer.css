@@ -1,0 +1,141 @@
+/* ---------- Общий подвал сайта (siteFooter() в server/render.js): главная и внутренние страницы ---------- */
+.page-footer {
+  border-top: 1px solid var(--card-border);
+  background:
+    radial-gradient(700px 260px at 0% 0%, rgba(var(--hot-rgb), 0.1), transparent 70%),
+    var(--bg-soft);
+  color: var(--chalk);
+}
+
+.pf-grid {
+  display: grid;
+  /* колонка контактов — по ширине содержимого, чтобы адрес не переносился */
+  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr)) max-content;
+  gap: 40px;
+  padding: 56px 0 40px;
+}
+
+.pf-brand {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  justify-items: start;
+}
+
+.pf-logo img {
+  display: block;
+  width: 140px;
+  height: auto;
+}
+
+.pf-brand p {
+  max-width: 32ch;
+  margin: 0;
+  font-size: 15px !important;
+  line-height: 1.6;
+}
+
+.pf-brand .btn {
+  min-height: 40px;
+  padding: 8px 20px;
+  font-size: 13px !important;
+}
+
+.pf-col {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.page-footer .pf-title {
+  display: block;
+  margin: 0 0 6px;
+  padding: 0;
+  border: 0;
+  color: #f0a59f;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px !important;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.page-footer .pf-title::after {
+  display: none;
+}
+
+.pf-col a,
+.pf-col p,
+.pf-bottom a,
+.pf-bottom p {
+  margin: 0;
+  color: var(--chalk);
+  font-size: 15px !important;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.pf-contacts p {
+  white-space: nowrap;
+}
+
+.pf-col a,
+.pf-bottom a {
+  justify-self: start;
+  transition: color 0.2s ease;
+}
+
+.pf-col a:hover,
+.pf-bottom a:hover {
+  color: var(--ink);
+}
+
+.pf-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 20px 0 28px;
+  border-top: 1px solid var(--card-border);
+}
+
+.pf-bottom p,
+.pf-bottom a {
+  color: var(--muted);
+  font-size: 13px !important;
+}
+
+/* год в копирайте — <span data-year>: глобальный размер span из base.css здесь не нужен */
+.pf-bottom p span {
+  font-size: inherit !important;
+}
+
+@media (max-width: 1023px) {
+  .pf-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) max-content;
+  }
+
+  .pf-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .pf-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 20px;
+    padding: 40px 0 28px;
+  }
+
+  .pf-contacts {
+    grid-column: 1 / -1;
+  }
+
+  .pf-contacts p {
+    white-space: normal;
+  }
+
+  .pf-bottom {
+    flex-direction: column;
+  }
+}

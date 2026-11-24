@@ -6,6 +6,7 @@ import { initAuth } from "./server/auth.js";
 import { createRepo } from "./server/repo.js";
 import { createNotifier } from "./server/notify.js";
 import { createRenderer } from "./server/render.js";
+import { PAGES, REDIRECTS, LEGACY_MC, LEGACY_SECTIONS } from "./server/pages.js";
 import { seed } from "./server/seed.js";
 import { saveUpload, removeUploadIfUnused, MAX_UPLOAD } from "./server/uploads.js";
 import { HttpError, send, sendJson, sendHtml, readJson, readBody, serveFile, clientIp, rateLimiter, nowLocal } from "./server/util.js";
@@ -141,6 +142,26 @@ async function adminApi(req, res, route) {
 
 /* ---------- Маршруты ---------- */
 
+const TEXT_HEADERS = (type) => ({ "Content-Type": `${type}; charset=utf-8`, "Cache-Control": "public, max-age=3600" });
+
+/** Куда вести старый адрес (WordPress-сайт) или null. */
+function legacyTarget(p) {
+  const key = p.replace(/\/+$/, "").toLowerCase();
+  if (REDIRECTS[key]) return REDIRECTS[key];
+  const mcSlug = LEGACY_MC[key];
+  if (mcSlug && repo.getMasterClassBySlug(mcSlug)) return `/mk/${mcSlug}`;
+  const section = LEGACY_SECTIONS.find(([prefix]) => (key + "/").startsWith(prefix));
+  return section ? section[1] : null;
+}
+
+/** Адрес сайта для sitemap/robots: SITE_URL из .env, иначе — из заголовков запроса. */
+function siteBase(req) {
+  if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/+$/, "");
+  const proto = String(req.headers["x-forwarded-proto"] || "http").split(",")[0].trim();
+  const host = String(req.headers["x-forwarded-host"] || req.headers.host || `localhost:${PORT}`).split(",")[0].trim();
+  return `${proto}://${host}`;
+}
+
 async function handle(req, res) {
   const url = new URL(req.url, "http://localhost");
   const p = url.pathname;
@@ -159,6 +180,9 @@ async function handle(req, res) {
   if (p.startsWith("/api/")) throw new HttpError(404, "Не найдено");
   if (req.method !== "GET" && req.method !== "HEAD") throw new HttpError(405, "Метод не поддерживается");
 
+  if (p === "/robots.txt") return send(res, 200, render.robots(siteBase(req)), TEXT_HEADERS("text/plain"));
+  if (p === "/sitemap.xml") return send(res, 200, render.sitemap(siteBase(req)), TEXT_HEADERS("application/xml"));
+
   if (p === "/" || p === "/index.html") return sendHtml(res, 200, render.landing());
   if (p === "/mk" || p === "/mk/") return sendHtml(res, 200, render.masterClassList());
   let m;
@@ -166,6 +190,13 @@ async function handle(req, res) {
     const mc = repo.getMasterClassBySlug(m[1]);
     return mc ? sendHtml(res, 200, render.masterClassPage(mc)) : sendHtml(res, 404, render.notFound());
   }
+
+  if ((m = p.match(/^\/([a-z-]+)(\/?)$/)) && Object.hasOwn(PAGES, m[1])) {
+    if (!m[2]) return send(res, 301, null, { Location: `/${m[1]}/${url.search}` });
+    return sendHtml(res, 200, render.staticPage(m[1]));
+  }
+  const legacy = legacyTarget(p);
+  if (legacy) return send(res, 301, null, { Location: legacy });
 
   if (p === "/admin") return send(res, 301, null, { Location: "/admin/" });
   if (p === "/admin/") {

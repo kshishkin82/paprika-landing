@@ -112,6 +112,8 @@ export function createRepo(db) {
       const slug = uniqueSlug(slugify(str(input.slug, "Адрес", { max: 80 }) || title), mcId);
       const published = bool(input.published ?? 1);
       const showOnHome = bool(input.show_on_home ?? 0);
+      const seoTitle = str(input.seo_title, "SEO-заголовок", { max: 150 });
+      const seoDescription = str(input.seo_description, "SEO-описание", { max: 300 }).replace(/\s+/g, " ");
       const removed = [];
 
       const savedId = transaction(db, () => {
@@ -120,9 +122,9 @@ export function createRepo(db) {
           const res = db
             .prepare(
               `UPDATE master_classes SET title = ?, slug = ?, description_md = ?, next_date = ?, published = ?,
-               show_on_home = ?, updated_at = datetime('now') WHERE id = ?`
+               show_on_home = ?, seo_title = ?, seo_description = ?, updated_at = datetime('now') WHERE id = ?`
             )
-            .run(title, slug, description, nextDate, published, showOnHome, rowId);
+            .run(title, slug, description, nextDate, published, showOnHome, seoTitle, seoDescription, rowId);
           if (!res.changes) throw new HttpError(404, "Мастер-класс не найден");
           removed.push(...photosOf(rowId).filter((u) => !photos.includes(u)));
           db.prepare("DELETE FROM master_class_photos WHERE master_class_id = ?").run(rowId);
@@ -130,10 +132,11 @@ export function createRepo(db) {
           rowId = Number(
             db
               .prepare(
-                `INSERT INTO master_classes (title, slug, description_md, next_date, published, show_on_home, sort)
-                 VALUES (?, ?, ?, ?, ?, ?, (SELECT COALESCE(MAX(sort), -1) + 1 FROM master_classes))`
+                `INSERT INTO master_classes (title, slug, description_md, next_date, published, show_on_home,
+                   seo_title, seo_description, sort)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, (SELECT COALESCE(MAX(sort), -1) + 1 FROM master_classes))`
               )
-              .run(title, slug, description, nextDate, published, showOnHome).lastInsertRowid
+              .run(title, slug, description, nextDate, published, showOnHome, seoTitle, seoDescription).lastInsertRowid
           );
         }
         const ins = db.prepare("INSERT INTO master_class_photos (master_class_id, url, sort) VALUES (?, ?, ?)");

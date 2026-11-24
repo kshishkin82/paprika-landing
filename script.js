@@ -26,13 +26,19 @@ if (stickyMenu) {
   }
 }
 
-/* ---------- Кнопка «Позвонить» прячется в блоке контактов ---------- */
+/* ---------- Кнопка «Позвонить» прячется в блоке контактов и в подвале ---------- */
 const callFab = document.querySelector(".call-fab");
-const contactsBlock = document.getElementById("contacts");
-if (callFab && contactsBlock && "IntersectionObserver" in window) {
-  new IntersectionObserver(([entry]) => callFab.classList.toggle("is-away", entry.isIntersecting), {
-    threshold: 0.25,
-  }).observe(contactsBlock);
+const fabHideZones = [document.getElementById("contacts"), document.querySelector(".page-footer")].filter(Boolean);
+if (callFab && fabHideZones.length && "IntersectionObserver" in window) {
+  const visible = new Set();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
+      callFab.classList.toggle("is-away", visible.size > 0);
+    },
+    { threshold: 0.25 }
+  );
+  fabHideZones.forEach((el) => observer.observe(el));
 }
 
 /* ---------- Подсветка активного пункта меню ---------- */

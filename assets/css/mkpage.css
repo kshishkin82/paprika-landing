@@ -162,16 +162,69 @@
   margin-bottom: 24px;
 }
 
-.page-footer {
-  border-top: 1px solid var(--card-border);
-  padding: 28px 0 90px;
+/* ---------- 404 ---------- */
+.nf {
+  position: relative;
+  isolation: isolate;
+  padding: 72px 0 96px;
+  text-align: center;
+}
+
+.nf::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 60% 40% at 50% 22%, rgba(var(--hot-rgb), 0.18), transparent);
+}
+
+.nf-code {
+  margin: 0;
+  font-family: "Merriweather", serif;
+  font-size: clamp(110px, 22vw, 220px) !important;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--hot);
+  letter-spacing: -0.04em;
+}
+
+.nf h1 {
+  display: block;
+  margin: 8px 0 14px;
+  border: 0;
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 400;
+}
+
+.nf-lead {
+  max-width: 46ch;
+  margin: 0 auto 28px;
+  color: var(--chalk);
+}
+
+.nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.nf-help {
+  margin: 0;
   color: var(--muted);
 }
 
-.page-footer p {
-  margin: 0;
+.nf-help a {
+  color: var(--ink);
 }
 
-.page-footer a {
-  color: var(--ink);
+@media (max-width: 560px) {
+  .nf {
+    padding: 40px 0 72px;
+  }
+
+  .nf-actions .btn {
+    width: 100%;
+  }
 }

@@ -99,6 +99,29 @@
   display: none;
 }
 
+/* ---------- Логотип справа в меню внутренних страниц ---------- */
+.hero-menu a.menu-logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 0;
+}
+
+.hero-menu a.menu-logo::after {
+  display: none;
+}
+
+.menu-logo img {
+  display: block;
+  width: auto;
+  height: 34px;
+  transition: opacity 0.2s ease;
+}
+
+.hero-menu a.menu-logo:hover img {
+  opacity: 0.85;
+}
+
 @media (max-width: 1023px) {
   .hero-menu a.menu-cta {
     display: none;
@@ -195,6 +218,29 @@
     display: flex;
     justify-content: flex-start;
     gap: 14px;
+  }
+
+  /* в телефоне: «Вернуться» слева, логотип справа — одной строкой */
+  .hero-menu-sub .hero-menu-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hero-menu-sub a.menu-logo {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .hero-menu-sub a.menu-logo::before {
+    display: none;
+  }
+
+  .hero-menu-sub .menu-logo img {
+    height: 30px;
   }
 
   /* стрелка слева, смотрит назад */

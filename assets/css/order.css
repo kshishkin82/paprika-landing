@@ -228,3 +228,7 @@
     padding: 24px 18px 18px;
   }
 }
+
+.order-note a {
+  color: inherit;
+}
